@@ -288,7 +288,18 @@
             right: 0;
             clip-path: polygon(100% 0, 0 50%, 100% 100%); /* Perfect right-anchored triangle pointing left <| */
         }
-        /* Only hide on tablets/phones, laptop users should see it! */
+        
+        .glass-text-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 30px 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            position: relative;
+            z-index: 3;
+        }
         @media (max-width: 800px) {
             .tech-grid { display: none; }
         }
@@ -1231,8 +1242,8 @@
                         </div>
 
                         <!-- FAQ Preview for Candidates -->
-                        <div style="margin-top: 40px;">
-                            <h4>Common Questions</h4>
+                        <div class="glass-text-panel" style="margin-top: 40px;">
+                            <h4 style="text-align: center; margin-top: 0; margin-bottom: 25px; font-size: 1.5rem;">Common Questions</h4>
                             <div class="faq-item">
                                 <div class="faq-question" onclick="toggleFaq(this)">How do I apply for a job at Futryx Technologies?<i class="fas fa-chevron-down faq-icon"></i></div>
                                 <div class="faq-answer">You can send your resume to info@futryx.in
@@ -1246,11 +1257,11 @@
                         </div>
 
                         <!-- Application Form -->
-                        <div class="section-header" style="margin-top: 80px; margin-bottom: 40px;">
-                            <h2 style="font-size: 2.5rem;">Apply <span class="gradient-text animated-gradient-text">Now</span></h2>
-                            <p>Ready to build the future with us? Submit your application below.</p>
+                        <div class="glass-text-panel" style="margin-top: 60px; margin-bottom: 40px; text-align: center; width: 100%; box-sizing: border-box;">
+                            <h2 style="font-size: 2.5rem; margin-top: 0; margin-bottom: 10px;">Apply <span class="gradient-text animated-gradient-text">Now</span></h2>
+                            <p style="margin: 0; color: var(--text-muted);">Ready to build the future with us? Submit your application below.</p>
                         </div>
-                        <div class="form-container" style="margin: 0; width: 100%;">
+                        <div class="form-container" style="margin: 0; width: 100%; position: relative; z-index: 3;">
                             <form id="careerForm" onsubmit="handleSubmit(event, 'Application Submitted! We will review your profile.')">
                                 <div class="form-group">
                                     <label>Full Name</label>
