@@ -1336,15 +1336,15 @@
                         <!-- Quick Stats -->
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 35px;">
                             <div style="text-align: center; padding: 18px 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px;">
-                                <p style="font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(135deg,#7C3AED,#DB2777); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">5+</p>
+                                <p style="font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(135deg,#7C3AED,#DB2777); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"><span class="founder-stat-number" data-target="5">0</span>+</p>
                                 <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0; font-weight: 500;">Years Experience</p>
                             </div>
                             <div style="text-align: center; padding: 18px 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px;">
-                                <p style="font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(135deg,#7C3AED,#DB2777); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">20+</p>
+                                <p style="font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(135deg,#7C3AED,#DB2777); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"><span class="founder-stat-number" data-target="20">0</span>+</p>
                                 <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0; font-weight: 500;">Projects Delivered</p>
                             </div>
                             <div style="text-align: center; padding: 18px 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px;">
-                                <p style="font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(135deg,#7C3AED,#DB2777); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">50+</p>
+                                <p style="font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(135deg,#7C3AED,#DB2777); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"><span class="founder-stat-number" data-target="50">0</span>+</p>
                                 <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0; font-weight: 500;">Talents Mentored</p>
                             </div>
                         </div>
@@ -1948,6 +1948,33 @@
                 void philosophy.offsetWidth;
                 setTimeout(() => philosophy.classList.add('play'), 500);
             }
+
+            // Stat Numbers Counting Animation
+            const statNumbers = document.querySelectorAll('.founder-stat-number');
+            statNumbers.forEach(stat => {
+                stat.innerText = '0'; // Reset on tab open
+            });
+            const statObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const targetEl = entry.target;
+                        const targetVal = parseInt(targetEl.getAttribute('data-target'), 10);
+                        let currentVal = 0;
+                        const increment = Math.max(1, Math.ceil(targetVal / 30));
+                        const timer = setInterval(() => {
+                            currentVal += increment;
+                            if (currentVal >= targetVal) {
+                                targetEl.innerText = targetVal;
+                                clearInterval(timer);
+                            } else {
+                                targetEl.innerText = currentVal;
+                            }
+                        }, 40);
+                        statObserver.unobserve(targetEl);
+                    }
+                });
+            }, { threshold: 0.5 });
+            statNumbers.forEach(stat => statObserver.observe(stat));
         }
 
 
