@@ -254,22 +254,21 @@
             z-index: 1;
             padding: 60px 0 100px 0;
         }
+        @keyframes spinSlow { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } }
+        @keyframes spinSlowReverse { from { transform: translateY(-50%) rotate(360deg); } to { transform: translateY(-50%) rotate(0deg); } }
+
+        @keyframes panGeometricBg { from { background-position: 0 0; } to { background-position: 200px 200px; } }
+        
         .sketch-bg-layer {
             position: absolute;
             inset: 0;
             z-index: 0;
             pointer-events: none;
-        }
-        .sketch-bg-layer::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: url('pencil-Photoroom.png') repeat;
-            background-size: 500px;
-            background-attachment: fixed;
-            /* PNG has transparent background, multiply blends lines cleanly */
-            mix-blend-mode: multiply;
-            opacity: 0.15;
+            overflow: hidden;
+            background-color: var(--bg);
+            /* Clean geometric architectural pattern matching the reference image */
+            background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%237C3AED' stroke-width='0.5' fill='none' opacity='0.15'%3E%3Crect x='0' y='0' width='200' height='200' /%3E%3Ccircle cx='100' cy='100' r='75' /%3E%3Ccircle cx='0' cy='0' r='75' /%3E%3Ccircle cx='200' cy='0' r='75' /%3E%3Ccircle cx='0' cy='200' r='75' /%3E%3Ccircle cx='200' cy='200' r='75' /%3E%3Cpolygon points='100,25 175,100 100,175 25,100' stroke='%23DB2777' stroke-width='0.3' opacity='0.4'/%3E%3Ccircle cx='100' cy='100' r='25' stroke='%237C3AED' stroke-width='0.3' /%3E%3C/g%3E%3C/svg%3E");
+            animation: panGeometricBg 90s linear infinite;
         }
         /* Gradient fade divs - very subtle, just 80px */
         .sketch-fade-top,
@@ -760,12 +759,11 @@
             </div>
 
             <!-- Why Choose Futryx Technologies -->
-            <div style="background: url('why_choose_bg.png') no-repeat center center/cover; padding: 100px 0; position: relative;">
-                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.85);"></div> <!-- Overlay -->
+            <div style="background: url('why_choose_bg.png') no-repeat center center/cover; padding: 100px 0; position: relative; background-attachment: fixed;">
                 <div class="container" style="position: relative; z-index: 1;">
-                    <div class="section-header animated-header">
-                        <div class="title-mask"><h2 class="reveal-title">Why Choose <span class="gradient-text animated-gradient-text">Futryx Technologies</span></h2></div>
-                        <p class="reveal-text">We combine affordability with quality through our unique professional-mentorship model.</p>
+                    <div class="section-header animated-header" style="background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 40px 20px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.5); max-width: 800px; margin: 0 auto 60px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                        <div class="title-mask"><h2 class="reveal-title" style="margin-bottom: 15px;">Why Choose <span class="gradient-text animated-gradient-text">Futryx Technologies</span></h2></div>
+                        <p class="reveal-text" style="margin: 0;">We combine affordability with quality through our unique professional-mentorship model.</p>
                     </div>
                     
                     <div class="grid-3">
@@ -1669,25 +1667,23 @@
                 observer.observe(header);
             });
             
-            // Footer Parallax Reveal Logic (Intelligent)
+            // Footer Parallax Reveal Logic (Works Perfectly on Mobile & Desktop)
             function setFooterParallax() {
                 const footer = document.querySelector('footer');
                 const main = document.querySelector('main');
                 if(footer && main) {
-                    // Only apply parallax if the footer actually fits on the screen!
-                    // If the footer is taller than the screen (like on mobile), a fixed footer would be unscrollable.
-                    if (footer.offsetHeight < window.innerHeight - 50) {
-                        main.style.marginBottom = `${footer.offsetHeight}px`;
-                        footer.style.position = 'fixed';
-                        footer.style.bottom = '0';
-                        footer.style.left = '0';
-                        footer.style.width = '100%';
-                        footer.style.zIndex = '1';
-                    } else {
-                        main.style.marginBottom = '0';
-                        footer.style.position = 'relative';
-                        footer.style.zIndex = '10';
-                    }
+                    // Force the footer to never exceed the screen height so the top isn't cut off when fixed
+                    footer.style.maxHeight = '100vh';
+                    footer.style.overflowY = 'auto';
+                    footer.style.overflowX = 'hidden';
+                    
+                    // Apply Parallax Reveal Effect
+                    main.style.marginBottom = `${footer.offsetHeight}px`;
+                    footer.style.position = 'fixed';
+                    footer.style.bottom = '0';
+                    footer.style.left = '0';
+                    footer.style.width = '100%';
+                    footer.style.zIndex = '1';
                 }
             }
             setTimeout(setFooterParallax, 100);
@@ -1767,6 +1763,26 @@
             if(pageId === 'home') runCounterAnimation();
             if(pageId === 'founder') setTimeout(triggerFounderAnimations, 150);
         }
+
+        // Also run if founder is the initial page
+        if (document.getElementById('founder') && document.getElementById('founder').classList.contains('active-page')) {
+            setTimeout(triggerFounderAnimations, 300);
+        }
+
+        // --- CUSTOM CANVAS MANDALA ANIMATION (CAREERS SECTION) ---
+        const mCanvas = document.getElementById('mandalaCanvas');
+        if (mCanvas) {
+            const ctx = mCanvas.getContext('2d');
+            let mTime = 0;
+            function resizeMandala() {
+                mCanvas.width = mCanvas.offsetWidth;
+                mCanvas.height = mCanvas.offsetHeight;
+            }
+            window.addEventListener('resize', resizeMandala);
+            resizeMandala(); // Initial sizing
+
+            // Mathematical Rhodonea curve (floral petal shapes)
+
 
         function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
         function toggleChat() { 
