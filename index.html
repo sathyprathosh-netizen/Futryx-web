@@ -257,7 +257,7 @@
         @keyframes spinSlow { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } }
         @keyframes spinSlowReverse { from { transform: translateY(-50%) rotate(360deg); } to { transform: translateY(-50%) rotate(0deg); } }
 
-        @keyframes panGeometricBg { from { background-position: 0 0; } to { background-position: 200px 200px; } }
+        @keyframes panGeometricBg { from { background-position: 0 0; } to { background-position: 120px 120px; } }
         
         .sketch-bg-layer {
             position: absolute;
@@ -266,9 +266,10 @@
             pointer-events: none;
             overflow: hidden;
             background-color: var(--bg);
-            /* Clean geometric architectural pattern matching the reference image */
-            background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%237C3AED' stroke-width='0.5' fill='none' opacity='0.15'%3E%3Crect x='0' y='0' width='200' height='200' /%3E%3Ccircle cx='100' cy='100' r='75' /%3E%3Ccircle cx='0' cy='0' r='75' /%3E%3Ccircle cx='200' cy='0' r='75' /%3E%3Ccircle cx='0' cy='200' r='75' /%3E%3Ccircle cx='200' cy='200' r='75' /%3E%3Cpolygon points='100,25 175,100 100,175 25,100' stroke='%23DB2777' stroke-width='0.3' opacity='0.4'/%3E%3Ccircle cx='100' cy='100' r='25' stroke='%237C3AED' stroke-width='0.3' /%3E%3C/g%3E%3C/svg%3E");
-            animation: panGeometricBg 90s linear infinite;
+            /* Custom Reverse-Engineered Geometric Knot Pattern */
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%237C3AED' stroke-width='1.5' fill='none' opacity='0.25'%3E%3Ccircle cx='50' cy='50' r='22' /%3E%3Cpath d='M 50 35 Q 65 15 50 0 Q 35 15 50 35' /%3E%3Cpath d='M 50 65 Q 65 85 50 100 Q 35 85 50 65' /%3E%3Cpath d='M 35 50 Q 15 35 0 50 Q 15 65 35 50' /%3E%3Cpath d='M 65 50 Q 85 35 100 50 Q 85 65 65 50' /%3E%3C/g%3E%3C/svg%3E");
+            background-size: 120px 120px;
+            animation: panGeometricBg 30s linear infinite;
         }
         /* Gradient fade divs - very subtle, just 80px */
         .sketch-fade-top,
