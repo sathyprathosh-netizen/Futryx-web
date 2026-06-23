@@ -1769,21 +1769,6 @@
             setTimeout(triggerFounderAnimations, 300);
         }
 
-        // --- CUSTOM CANVAS MANDALA ANIMATION (CAREERS SECTION) ---
-        const mCanvas = document.getElementById('mandalaCanvas');
-        if (mCanvas) {
-            const ctx = mCanvas.getContext('2d');
-            let mTime = 0;
-            function resizeMandala() {
-                mCanvas.width = mCanvas.offsetWidth;
-                mCanvas.height = mCanvas.offsetHeight;
-            }
-            window.addEventListener('resize', resizeMandala);
-            resizeMandala(); // Initial sizing
-
-            // Mathematical Rhodonea curve (floral petal shapes)
-
-
         function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
         function toggleChat() { 
             const chat = document.getElementById('chatWindow');
