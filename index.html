@@ -269,25 +269,25 @@
         /* --- TECH GRIDS --- */
         .tech-grid {
             position: absolute;
-            top: 25%;
+            top: 15%;
             width: 180px;
-            height: 300px;
+            height: 400px;
             pointer-events: none;
-            opacity: 0.25;
+            opacity: 0.7; /* Increased opacity to make it visible */
             transition: transform 0.5s ease-out;
-            background-image: radial-gradient(rgba(168, 85, 247, 0.4) 1.5px, transparent 1.5px);
+            background-image: radial-gradient(rgba(168, 85, 247, 0.7) 2px, transparent 2px); /* Made dots thicker and brighter */
             background-size: 24px 24px;
             mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
             -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
             z-index: 1;
         }
         .decoration-left {
-            left: 40px;
+            left: 20px;
             transform: rotate(5deg);
             animation: subtleFloatLeft 12s ease-in-out infinite alternate;
         }
         .decoration-right {
-            right: 40px;
+            right: 20px;
             transform: rotate(-5deg);
             animation: subtleFloatRight 12s ease-in-out infinite alternate-reverse;
         }
@@ -299,7 +299,8 @@
             0% { transform: translateY(0) rotate(-5deg); }
             100% { transform: translateY(15px) rotate(-8deg); }
         }
-        @media (max-width: 1300px) {
+        /* Only hide on tablets/phones, laptop users should see it! */
+        @media (max-width: 800px) {
             .tech-grid { display: none; }
         }
         /* Gradient fade divs - very subtle, just 80px */
