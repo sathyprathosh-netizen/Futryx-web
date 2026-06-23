@@ -257,8 +257,6 @@
         @keyframes spinSlow { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } }
         @keyframes spinSlowReverse { from { transform: translateY(-50%) rotate(360deg); } to { transform: translateY(-50%) rotate(0deg); } }
 
-        @keyframes panGeometricBg { from { background-position: 0 0; } to { background-position: 120px 120px; } }
-        
         .sketch-bg-layer {
             position: absolute;
             inset: 0;
@@ -266,10 +264,6 @@
             pointer-events: none;
             overflow: hidden;
             background-color: var(--bg);
-            /* Custom Reverse-Engineered Geometric Knot Pattern */
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%237C3AED' stroke-width='1.5' fill='none' opacity='0.25'%3E%3Ccircle cx='50' cy='50' r='22' /%3E%3Cpath d='M 50 35 Q 65 15 50 0 Q 35 15 50 35' /%3E%3Cpath d='M 50 65 Q 65 85 50 100 Q 35 85 50 65' /%3E%3Cpath d='M 35 50 Q 15 35 0 50 Q 15 65 35 50' /%3E%3Cpath d='M 65 50 Q 85 35 100 50 Q 85 65 65 50' /%3E%3C/g%3E%3C/svg%3E");
-            background-size: 120px 120px;
-            animation: panGeometricBg 30s linear infinite;
         }
         /* Gradient fade divs - very subtle, just 80px */
         .sketch-fade-top,
