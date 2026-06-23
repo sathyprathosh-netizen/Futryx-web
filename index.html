@@ -265,6 +265,43 @@
             overflow: hidden;
             background-color: transparent;
         }
+
+        /* --- TECH GRIDS --- */
+        .tech-grid {
+            position: absolute;
+            top: 25%;
+            width: 180px;
+            height: 300px;
+            pointer-events: none;
+            opacity: 0.25;
+            transition: transform 0.5s ease-out;
+            background-image: radial-gradient(rgba(168, 85, 247, 0.4) 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+            z-index: 1;
+        }
+        .decoration-left {
+            left: 40px;
+            transform: rotate(5deg);
+            animation: subtleFloatLeft 12s ease-in-out infinite alternate;
+        }
+        .decoration-right {
+            right: 40px;
+            transform: rotate(-5deg);
+            animation: subtleFloatRight 12s ease-in-out infinite alternate-reverse;
+        }
+        @keyframes subtleFloatLeft {
+            0% { transform: translateY(0) rotate(5deg); }
+            100% { transform: translateY(-15px) rotate(8deg); }
+        }
+        @keyframes subtleFloatRight {
+            0% { transform: translateY(0) rotate(-5deg); }
+            100% { transform: translateY(15px) rotate(-8deg); }
+        }
+        @media (max-width: 1300px) {
+            .tech-grid { display: none; }
+        }
         /* Gradient fade divs - very subtle, just 80px */
         .sketch-fade-top,
         .sketch-fade-bottom {
@@ -1164,8 +1201,11 @@
                 </div>
             </div>
 
-            <div class="sketch-bg-section">
+            <div class="sketch-bg-section" style="overflow: hidden;">
                 <div class="sketch-bg-layer"></div>
+                <!-- Tech Grids -->
+                <div class="tech-grid decoration-left"></div>
+                <div class="tech-grid decoration-right"></div>
                 <!-- Fixed Top Fade -->
                 <div class="sketch-fade-top"></div>
                 <!-- Fixed Bottom Fade -->
@@ -1908,6 +1948,18 @@
                 setTimeout(() => philosophy.classList.add('play'), 500);
             }
         }
+
+        // Tech Grid Mouse Parallax
+        document.addEventListener('mousemove', (e) => {
+            const leftGrid = document.querySelector('.decoration-left');
+            const rightGrid = document.querySelector('.decoration-right');
+            if (leftGrid && rightGrid) {
+                const moveX = (e.clientX - window.innerWidth / 2) * 0.02;
+                const moveY = (e.clientY - window.innerHeight / 2) * 0.02;
+                leftGrid.style.transform = `translate(${moveX}px, ${moveY}px) rotate(5deg)`;
+                rightGrid.style.transform = `translate(${-moveX}px, ${-moveY}px) rotate(-5deg)`;
+            }
+        });
 
     </script>
 </body>
